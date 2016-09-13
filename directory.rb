@@ -18,10 +18,10 @@ def print_header
   puts "-------------"
 end
 
-def print(names) #adding the array variable "students" as an argument in this method
-  names.each {|student|
-    puts student
-  }
+def print(students)
+  students.each {|student|
+    puts "#{student[0]} (#{student[0]}) cohort"
+        }
 end
 
 def print_footer(names)   #adding the students variable in here as argument
