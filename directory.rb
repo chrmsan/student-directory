@@ -1,4 +1,3 @@
-student_count = 11
 # let's put all students into an array
 students = [
 "Dr. Hannibal Lecter",
@@ -13,8 +12,9 @@ students = [
 "Joffrey Baratheon",
 "Norman Bates"]
 # and then print them
-puts "The students of Villains Academy"
-puts "-------------"
+
+  puts "The students of Villains Academy"
+  puts "-------------"
 students.each {|student|
   puts student
 }
