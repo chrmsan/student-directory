@@ -1,33 +1,39 @@
-students = [    #this is an array where each object in the array is a hash, with two keys and each key has a value
-{name: "Dr. Hannibal Lecter", cohort: :november},
-{name: "Darth Vader", cohort: :november},
-{name: "Nurse Ratched", cohort: :november},
-{name: "Michael Corleone", cohort: :november},
-{name: "Alex DeLarge", cohort: :november},
-{name: "The Wicked With of the West", cohort: :november},
-{name: "Terminator", cohort: :november},
-{name: "Freddy Krueger", cohort: :november},
-{name: "The Joker", cohort: :november},
-{name: "Joffrey Baratheon", cohort: :november},
-{name: "Norman Bates", cohort: :november}
-]
-# and then print them
-
 def print_header
   puts "The students of Villains Academy"
   puts "-------------"
 end
 
-def print(students)
-  students.each {|student|        # here each object in the students array is called for, and the keys of the hash of each object is printed  in the print command puts  through interpolation 
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
-        }
+
+def input_students
+  puts "Please enter the names of the students"
+  puts "To finish, jusy hit return twice"
+  # create an empty array
+  students = Array.new
+  # get the first name
+  name = gets.chomp
+  # while the name is not empty repeat ths code
+  while !name.empty? 
+    #given that name variable is not empty, it is put as a key in the name: symbol inside a hash. And the hash itself is an object to the array students.
+    students << {name: name, cohort: :november}
+    puts "Now we have #{students.count} students"
+    # and the code starts again where it asks for another name from the user
+    name = gets.chomp
+  end
+  # return the array of students
+  students
 end
 
-def print_footers(students)   #adding the students variable in here as argument
+def print(students) # default name of argument to the method print is only a name
+  students.each {|student|
+    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  }
+end
+
+def print_footer(students) # counts the objects inside the students array
   puts "Overall, we have #{students.count} great students"
 end
-# nothing happens until we call the methods, and we do it by writing the method names below
-print_header # first method in this file
-print(students) #second method in this file with the students varible as an argument
-print_footers(students) #third method with the students variable as an argument
+
+students = input_students # sets the input_student method as the variable students
+print_header
+print(students) # students variable is put in as an argument in the print method
+print_footer(students) # students varibale is put in as an argument in the print method that method ends, and print_footer method would activite and count the return value of students from input students method
