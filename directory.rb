@@ -23,8 +23,8 @@ def input_students
 end
 
 def print(students) # default name of argument to the method print is only a name
-  students.each {|student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  students.each_with_index {|student,i|
+    puts "#{i}. #{student[:name]} (#{student[:cohort]} cohort)"
   }
 end
 
