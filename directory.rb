@@ -26,6 +26,8 @@ def print(students) # default name of argument to the method print is only a nam
   students.each {|student|
     puts "#{student[:name]} (#{student[:cohort]} cohort)"
   }
+end
+
 def print_footer(students) # counts the objects inside the students array
   puts "Overall, we have #{students.count} great students"
 end
