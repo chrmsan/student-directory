@@ -24,8 +24,10 @@ end
 
 def print(students) # default name of argument to the method print is only a name
 students.each_with_index do |student,i|
-    if student[:name].length < 12
+    count = 1
+    until count == students.length
       puts "#{i + 1}. #{student[:name]} (#{student[:cohort]} cohort)" #added +1 to index i so the index would start at 1."
+      count = count + 1  
     end 
   end
 end
