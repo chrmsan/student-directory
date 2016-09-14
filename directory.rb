@@ -3,7 +3,6 @@ def print_header
   puts "-------------"
 end
 
-
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, jusy hit return twice"
@@ -27,8 +26,6 @@ def print(students) # default name of argument to the method print is only a nam
   students.each {|student|
     puts "#{student[:name]} (#{student[:cohort]} cohort)"
   }
-end
-
 def print_footer(students) # counts the objects inside the students array
   puts "Overall, we have #{students.count} great students"
 end
