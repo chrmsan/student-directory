@@ -23,13 +23,11 @@ def input_students
 end
 
 def print(students) # default name of argument to the method print is only a name
-students.each_with_index do |student,i|
     count = 1
-    until count == students.length
-      puts "#{i + 1}. #{student[:name]} (#{student[:cohort]} cohort)" #added +1 to index i so the index would start at 1."
-      count = count + 1  
+    until count > students.length
+      puts "#{count}. #{students[count-1][:name]} (#{students[count-1][:cohort]} cohort)" #added +1 to index i so the index would start at 1."
+      count += 1  
     end 
-  end
 end
 
 def print_footer(students) # counts the objects inside the students array
