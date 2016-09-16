@@ -8,7 +8,7 @@ def input_students
   puts "To finish, just hit return twice"
 
   students = Array.new
-  name = gets.chomp
+  name = gets+'\n'.chop
 
   while !name.empty? 
     puts "Please enter the cohort month the student belongs to. Or hit return to pass."
