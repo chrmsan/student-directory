@@ -8,7 +8,7 @@ def input_students
   puts "To finish, just hit return twice"
 
   students = Array.new
-  name = gets+'\n'.chop
+  name = gets.chomp
 
   while !name.empty? 
     puts "Please enter the cohort month the student belongs to. Or hit return to pass."
@@ -16,8 +16,18 @@ def input_students
     cohort = gets.chomp.downcase.to_sym    
     
     @cohorts = [:january, :february, :march, :may, :june, :july, :september, :november]
-  
-    students << {name: name, cohort: (@cohorts.include?(cohort) ? cohort : :unknown), hobbies: :hobbies, c_of_b: :country, height: :height }
+
+    puts "What is the student's gender?" 
+    gender = gets.chomp.downcase.to_sym
+    
+    puts "What is the student's mother tongue?"
+    language = gets.chomp.capitalize.to_sym
+    
+    puts "What is the student country of origin?"
+    country = gets.chomp.capitalize.to_sym
+    
+
+    students << {name: name, cohort: (@cohorts.include?(cohort) ? cohort : :unknown), gender: gender, m_tongue: language, c_of_b: country }
     
     puts "Now we have #{students.count} #{students.count > 1 ? "students" : "student"}. Please enter a new name, or hit return to exit."
     name = gets.chomp
@@ -40,11 +50,11 @@ def print_by_cohort(students)
   puts "Here we will print out students from a specific cohort"
   puts "Please enter cohort month of the relevant group of students"
   cohort = gets.chomp.downcase.to_sym
-  puts "Students belonging to the #{cohort} cohort of Villains Academy".center(50)
+  puts "Students belonging to the #{cohort.capitalize} cohort of Villains Academy".center(50)
   puts "".center(50, '-')
   students.each do |student|
     if student[:cohort] == cohort
-      puts "#{student[:name]}"
+      puts "- #{student[:name]}, is #{student[:gender]}, who speaks #{student[:m_tongue]}, and is from #{student[:c_of_b]}"
     end
   end      
 end
