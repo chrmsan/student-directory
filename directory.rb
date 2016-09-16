@@ -11,7 +11,11 @@ def input_students
   name = gets.chomp
 
   while !name.empty? 
-    students << {name: name, cohort: :november, hobbies: :hobbies, c_of_b: :country, height: :height }
+    puts "Please enter the cohort month the student belongs to"
+
+    cohort = gets.chomp    
+
+    students << {name: name, cohort: cohort, hobbies: :hobbies, c_of_b: :country, height: :height }
     puts "Now we have #{students.count} students"
     name = gets.chomp
   end
