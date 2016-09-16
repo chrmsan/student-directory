@@ -1,6 +1,6 @@
 def print_header
-  puts "The students of Villains Academy"
-  puts "-------------"
+  puts "The students of Villains Academy".center(50)
+  puts "".center(50, '-')
 end
 
 def input_students
@@ -13,7 +13,7 @@ def input_students
 # while the name is not empty repeat ths code
   while !name.empty? 
 #given that name variable is not empty, it is put as a key in the name: symbol inside a hash. And the hash itself is an object to the array students.
-    students << {name: name, cohort: :november}
+    students << {name: name, cohort: :november, hobbies: :hobbies, c_of_b: :country, height: :height }
     puts "Now we have #{students.count} students"
 # and the code starts again where it asks for another name from the user
     name = gets.chomp
@@ -31,7 +31,9 @@ def print(students) # default name of argument to the method print is only a nam
 end
 
 def print_footer(students) # counts the objects inside the students array
-  puts "Overall, we have #{students.count} great students"
+  puts "".center(50, '-')
+  puts "Overall, we have #{students.count} great students!".center(50)
+  puts "".center(50, '-')
 end
 
 students = input_students # sets the input_student method as the variable students
