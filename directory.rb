@@ -18,7 +18,8 @@ def input_students
     cohorts = [:january, :february, :march, :may, :june, :july, :september, :november]
   
     students << {name: name, cohort: (cohorts.include?(cohort) ? cohort : :unknown), hobbies: :hobbies, c_of_b: :country, height: :height }
-    puts "Now we have #{students.count} students. Please enter a new name, or hit return to exit."
+    
+    puts "Now we have #{students.count} #{students.count > 1 ? "students" : "student"}. Please enter a new name, or hit return to exit."
     name = gets.chomp
   end
 
@@ -37,7 +38,7 @@ end
 
 def print_footer(students) 
   puts "".center(50, '-')
-  puts "Overall, we have #{students.count} great students!".center(50)
+  puts "Overall, we have #{students.count} great #{students.count > 1 ? "students" : "student"}!".center(50)
   puts "".center(50, '-')
 end
 
