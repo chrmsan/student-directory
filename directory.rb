@@ -24,7 +24,7 @@ end
 
 def print(students) # default name of argument to the method print is only a name
     count = 1
-    until count > students.length
+    while count <= students.length   # alternatively it is possible to use until-loop "until count > students.length"
       puts "#{count}. #{students[count-1][:name]} (#{students[count-1][:cohort]} cohort)" #added +1 to index i so the index would start at 1."
       count += 1  
     end 
