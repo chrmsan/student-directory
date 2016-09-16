@@ -11,12 +11,12 @@ def input_students
   name = gets.chomp
 
   while !name.empty? 
-    puts "Please enter the cohort month the student belongs to"
+    puts "Please enter the cohort month the student belongs to. Or hit return to pass."
 
-    cohort = gets.chomp    
+    cohort = gets.chomp.downcase.to_sym    
 
-    students << {name: name, cohort: cohort, hobbies: :hobbies, c_of_b: :country, height: :height }
-    puts "Now we have #{students.count} students"
+    students << {name: name, cohort: (!cohort.empty? ? cohort : :unknown), hobbies: :hobbies, c_of_b: :country, height: :height }
+    puts "Now we have #{students.count} students. Please enter a new name, or hit return to exit."
     name = gets.chomp
   end
 
