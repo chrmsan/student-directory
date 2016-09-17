@@ -4,7 +4,7 @@ def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
 
-  name = gets.chomp             # prompts the name
+  name = STDIN.gets.chomp             # prompts the name
 
   while !name.empty?            # if user enters a name, the following code will work 
     puts "Please enter the cohort month the student belongs to. Or hit return to pass if that is unknown."
@@ -30,7 +30,7 @@ def input_students
     @students << {name: name, cohort: (!cohort.empty? ? cohort : :unknown), gender: gender, m_tongue: language, c_of_b: country }  # above variables are pushed inside as key values inside a hash representing a student, and each hash is an object inside the students array. For the cohort: key, the value is inside a ternary operator, where the prompted cohort value is returned if the cohort variable is not empty, and if it is :cohort value is defaulted to :unknown
     
     puts "Now we have #{@students.count} #{@students.count > 1 ? "students" : "student"}. Please enter a new name, or hit return to go back to the menu."   # the print is interpolated on how many students there are in the array, and if there are more than 1 student the sentence will change accordingly."
-    name = gets.chomp #   name prompt is activated again
+    name = STDIN.gets.chomp #   name prompt is activated again
   end
 
   @students   # returns the array of student hashes
@@ -135,7 +135,7 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -155,8 +155,8 @@ end
 
 
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym}
@@ -165,6 +165,21 @@ def load_students
 end
 
 
+
+def try_load_students
+  filename = ARGV.first # first argument from the command line
+  return if filename.nil? # get out of the method if isn't given
+  if File.exists?(filename) #if it exists
+    load_students(filename)
+      puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry, #{filename} doesn't exist"
+    exit
+  end
+end
+
+
+try_load_students
 interactive_menu
 
 
