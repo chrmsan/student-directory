@@ -1,8 +1,9 @@
+@students = Array.new   #instance variable named students that is an array
+
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
 
-  students = Array.new          # create array
   name = gets.chomp             # prompts the name
 
   while !name.empty?            # if user enters a name, the following code will work 
@@ -26,24 +27,24 @@ def input_students
     puts "What is the student's country of origin?"  # prompts country, makes it lowercase and makes into symbol
     country = gets.chomp.capitalize.to_sym
     
-    students << {name: name, cohort: (!cohort.empty? ? cohort : :unknown), gender: gender, m_tongue: language, c_of_b: country }  # above variables are pushed inside as key values inside a hash representing a student, and each hash is an object inside the students array. For the cohort: key, the value is inside a ternary operator, where the prompted cohort value is returned if the cohort variable is not empty, and if it is :cohort value is defaulted to :unknown
+    @students << {name: name, cohort: (!cohort.empty? ? cohort : :unknown), gender: gender, m_tongue: language, c_of_b: country }  # above variables are pushed inside as key values inside a hash representing a student, and each hash is an object inside the students array. For the cohort: key, the value is inside a ternary operator, where the prompted cohort value is returned if the cohort variable is not empty, and if it is :cohort value is defaulted to :unknown
     
-    puts "Now we have #{students.count} #{students.count > 1 ? "students" : "student"}. Please enter a new name, or hit return to exit."   # the print is interpolated on how many students there are in the array, and if there are more than 1 student the sentence will change accordingly."
+    puts "Now we have #{@students.count} #{@students.count > 1 ? "students" : "student"}. Please enter a new name, or hit return to exit."   # the print is interpolated on how many students there are in the array, and if there are more than 1 student the sentence will change accordingly."
     name = gets.chomp #   name prompt is activated again
   end
 
-  students   # returns the array of student hashes
+  @students   # returns the array of student hashes
 end
 
 
 
-def print(students) 
-  if students.count > 0      # below print code is activated if there are any students in the list
+def print 
+  if @students.count > 0      # below print code is activated if there are any students in the list
 
       count = 1     # a counter variable for the while loop
 
-      while count <= students.length   # while will continue to loop until the count variable reaches the same number of students 
-        puts "#{count}. #{students[count-1][:name]} (#{students[count-1][:cohort]} cohort)"  # in this string we interpolate straight from the students array
+      while count <= @students.length   # while will continue to loop until the count variable reaches the same number of students 
+        puts "#{count}. #{@students[count-1][:name]} (#{@students[count-1][:cohort]} cohort)"  # in this string we interpolate straight from the students array
         count += 1  # each time the while loop is activated, count varibale incraeases by 1
       end
   else   # if there are no students, below string will be printed
@@ -54,15 +55,15 @@ end
 
 
 
-def print_by_cohort(students)
-  if students.count > 0
+def print_by_cohort
+  if @students.count > 0
     puts "".center(50, '-')
     puts "Here we will print out students from a specific cohort"
     puts "Please enter cohort month of the relevant group of students"
     cohort = gets.chomp.downcase.to_sym
     puts "Students belonging to the #{cohort.capitalize} cohort of Villains Academy".center(50)
     puts "".center(50, '-')
-    students.each do |student|    # each method activates below code for each object in the students array and calls the object for student
+    @students.each do |student|    # each method activates below code for each object in the students array and calls the object for student
       if student[:cohort] == cohort   # if each object student of students array's :cohort value mathches with cohort prompted variable, print below interpolated string 
         puts "- #{student[:name]}, is #{student[:gender]}, who speaks #{student[:m_tongue]}, and is from #{student[:c_of_b]}"
       end
@@ -75,8 +76,8 @@ end
 
 
 
-def print_header(students)
-  if students.count > 0  
+def print_header
+  if @students.count > 0  
     puts "The students of Villains Academy".center(50)
     puts "".center(50, '-')
   end
@@ -84,42 +85,31 @@ end
 
 
 
-def print_footer(students) 
-  if students.count > 0
+def print_footer 
+  if @students.count > 0
     puts "".center(50, '-')
-    puts "Overall, we have #{students.count} great #{students.count > 1 ? "students" : "student"}!".center(50)
+    puts "Overall, we have #{@students.count} great #{@students.count > 1 ? "students" : "student"}!".center(50)
     puts "".center(50, '-')
   end
 end
 
 
 
-def interactive_menu
-  students = Array.new
-  loop do
-    puts "Enter one of the below numbers and hit return to execute the following number's command"
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit"
-    
-    selection = gets.chomp
-    
-    case selection
-      when "1"
-        students = input_students
-      when "2"
-        print_header(students)
-        print(students)
-        print_footer(students)
-      when "9"
-        exit # this will cause the program to terminate
-      else
-        puts "I don't understand what you're doing, please try again!"
-    end
-  end
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
 end
 
-interactive_menu
+def show_students
+  print_header
+  print
+  print_footer
+end
+
+
+
+    
 
 #students = input_students   # creates a local variable called students that is equal to the method input_students, and there be equal to the students array of student hashes
 #print_header(students)      # method calls above students variable
