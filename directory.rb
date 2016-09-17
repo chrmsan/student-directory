@@ -26,7 +26,7 @@ def input_students
     puts "What is the student's country of origin?"  # prompts country, makes it lowercase and makes into symbol
     country = gets.chomp.capitalize.to_sym
     
-    students << {name: name, cohort: (!cohort.empty? ? cohort : :unknown), gender: gender, m_tongue: language, c_of_b: country }  # above variables are pushed inside as key values inside a hash representing a student, and each hash is an object inside the students array."
+    students << {name: name, cohort: (!cohort.empty? ? cohort : :unknown), gender: gender, m_tongue: language, c_of_b: country }  # above variables are pushed inside as key values inside a hash representing a student, and each hash is an object inside the students array. For the cohort: key, the value is inside a ternary operator, where the prompted cohort value is returned if the cohort variable is not empty, and if it is :cohort value is defaulted to :unknown
     
     puts "Now we have #{students.count} #{students.count > 1 ? "students" : "student"}. Please enter a new name, or hit return to exit."   # the print is interpolated on how many students there are in the array, and if there are more than 1 student the sentence will change accordingly."
     name = gets.chomp #   name prompt is activated again
