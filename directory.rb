@@ -32,7 +32,7 @@ def input_students
     name = gets.chomp #   name prompt is activated again
   end
 
-  students
+  students   # returns the array of student hashes
 end
 
 
@@ -92,8 +92,8 @@ def print_footer(students)
   end
 end
 
-students = input_students
-print_header(students)
+students = input_students   # creates a local variable called students that is equal to the method input_students, and there be equal to the students array of student hashes
+print_header(students)      # method calls above students variable
 print(students)
 #print_by_cohort(students) 
 print_footer(students) 
