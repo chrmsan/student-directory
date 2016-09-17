@@ -11,11 +11,16 @@ def input_students
   name = gets.chomp
 
   while !name.empty? 
-    puts "Please enter the cohort month the student belongs to. Or hit return to pass."
+    puts "Please enter the cohort month the student belongs to. Or hit return to pass if that is unknown."
 
     cohort = gets.chomp.downcase.to_sym    
     
-    @cohorts = [:january, :february, :march, :may, :june, :july, :september, :november]
+    cohorts = [:january, :february, :march, :may, :june, :july, :september, :november]
+
+    if !cohort.empty? && !cohorts.include?(cohort) then
+      puts "Your entry was invalid, please try again."
+      redo
+    end
 
     puts "What is the student's gender?" 
     gender = gets.chomp.downcase.to_sym
@@ -23,11 +28,11 @@ def input_students
     puts "What is the student's mother tongue?"
     language = gets.chomp.capitalize.to_sym
     
-    puts "What is the student country of origin?"
+    puts "What is the student's country of origin?"
     country = gets.chomp.capitalize.to_sym
     
 
-    students << {name: name, cohort: (@cohorts.include?(cohort) ? cohort : :unknown), gender: gender, m_tongue: language, c_of_b: country }
+    students << {name: name, cohort: (!cohort.empty? ? cohort : :unknown), gender: gender, m_tongue: language, c_of_b: country }
     
     puts "Now we have #{students.count} #{students.count > 1 ? "students" : "student"}. Please enter a new name, or hit return to exit."
     name = gets.chomp
@@ -67,6 +72,7 @@ def print_footer(students)
 end
 
 students = input_students
-#print_header
-print_by_cohort(students) 
-#print_footer(students) 
+print_header
+print(students)
+#print_by_cohort(students) 
+print_footer(students) 
