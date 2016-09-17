@@ -95,16 +95,35 @@ end
 
 
 def interactive_menu
+  loop do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"
+    
+    selection = gets.chomp
+    case selection
+      when "1"
+        students = input_students
+      when "2"
+        print_header
+        print(students)
+        print_footer(students)
+      when "9"
+        exit # this will cause the program to terminate
+      else
+        puts "I don't know what you meant, try again!"
+    end
   # 1. print the menu and ask the user what to do
   # 2. read the input and save it into a variable
   # 3. do what the user has asked
   # 4. repeat from step 1
+  end
 end
 
 
 
-students = input_students   # creates a local variable called students that is equal to the method input_students, and there be equal to the students array of student hashes
-print_header(students)      # method calls above students variable
-print(students)
+#students = input_students   # creates a local variable called students that is equal to the method input_students, and there be equal to the students array of student hashes
+#print_header(students)      # method calls above students variable
+#print(students)
 #print_by_cohort(students) 
 print_footer(students) 
