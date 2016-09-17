@@ -98,6 +98,7 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
+  puts "3. Save the list to students.csv"
   puts "9. Exit"
 end
 
@@ -117,6 +118,8 @@ def process(selection)
       input_students
     when "2"
       show_students
+    when "3"
+      save_students
     when "9"
       exit
     else
@@ -137,7 +140,7 @@ end
 
 def save_students
   # open the file for writing
-  file = File.open("student.csv", "w")     # open as in create a file?
+  file = File.open("students.csv", "w")     # open as in create a file?
   # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
@@ -150,6 +153,8 @@ end
 
 
 interactive_menu
+
+
 #students = input_students   # creates a local variable called students that is equal to the method input_students, and there be equal to the students array of student hashes
 #print_header(students)      # method calls above students variable
 #print(students)
