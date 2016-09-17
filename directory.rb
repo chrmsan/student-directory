@@ -2,35 +2,34 @@ def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
 
-  students = Array.new
-  name = gets.chomp
+  students = Array.new          # create array
+  name = gets.chomp             # prompts the name
 
-  while !name.empty? 
+  while !name.empty?            # if user enters a name, the following code will work 
     puts "Please enter the cohort month the student belongs to. Or hit return to pass if that is unknown."
 
-    cohort = gets.chomp.downcase.to_sym    
+    cohort = gets.chomp.downcase.to_sym    # prompts cohort month, makes it lowercase and makes into symbol
     
-    cohorts = [:january, :february, :march, :may, :june, :july, :september, :november]
+    cohorts = [:january, :february, :march, :may, :june, :july, :september, :november]        # array actual cohort months at Makers Academy in lower case symbol format
 
-    if !cohort.empty? && !cohorts.include?(cohort) then
+    if !cohort.empty? && !cohorts.include?(cohort) then       # if does enter a cohort month, but is does not match objects in cohorts array, activates the redo loop and it prints below code and, reprints above cohort print
       puts "Your entry was invalid, please try again."
       redo
     end
 
     puts "What is the student's gender?" 
-    gender = gets.chomp.downcase.to_sym
-    
-    puts "What is the student's mother tongue?"
+    gender = gets.chomp.downcase.to_sym   # prompts gnder, makes it lowercase and makes into symbol
+      
+    puts "What is the student's mother tongue?"  # prompts language, makes it lowercase and makes into symbol
     language = gets.chomp.capitalize.to_sym
     
-    puts "What is the student's country of origin?"
+    puts "What is the student's country of origin?"  # prompts country, makes it lowercase and makes into symbol
     country = gets.chomp.capitalize.to_sym
     
-
-    students << {name: name, cohort: (!cohort.empty? ? cohort : :unknown), gender: gender, m_tongue: language, c_of_b: country }
+    students << {name: name, cohort: (!cohort.empty? ? cohort : :unknown), gender: gender, m_tongue: language, c_of_b: country }  # above variables are pushed inside as key values inside a hash representing a student, and each hash is an object inside the students array."
     
-    puts "Now we have #{students.count} #{students.count > 1 ? "students" : "student"}. Please enter a new name, or hit return to exit."
-    name = gets.chomp
+    puts "Now we have #{students.count} #{students.count > 1 ? "students" : "student"}. Please enter a new name, or hit return to exit."   # the print is interpolated on how many students there are in the array, and if there are more than 1 student the sentence will change accordingly."
+    name = gets.chomp #   name prompt is activated again
   end
 
   students
@@ -39,16 +38,16 @@ end
 
 
 def print(students) 
-  if students.count > 0      
+  if students.count > 0      # below print code is activated if there are any students in the list
 
-      count = 1
+      count = 1     # a counter variable for the while loop
 
-      while count <= students.length  
-        puts "#{count}. #{students[count-1][:name]} (#{students[count-1][:cohort]} cohort)" 
-        count += 1  
+      while count <= students.length   # while will continue to loop until the count variable reaches the same number of students 
+        puts "#{count}. #{students[count-1][:name]} (#{students[count-1][:cohort]} cohort)"  # in this string we interpolate straight from the students array
+        count += 1  # each time the while loop is activated, count varibale incraeases by 1
       end
-  else
-    puts "Student list not available since no students were entered in the system."
+  else   # if there are no students, below string will be printed
+    puts "Student list not available since no students were entered in the system.".center(50) 
     puts "".center(50, '-')   
   end 
 end
@@ -63,8 +62,8 @@ def print_by_cohort(students)
     cohort = gets.chomp.downcase.to_sym
     puts "Students belonging to the #{cohort.capitalize} cohort of Villains Academy".center(50)
     puts "".center(50, '-')
-    students.each do |student|
-      if student[:cohort] == cohort
+    students.each do |student|    # each method activates below code for each object in the students array and calls the object for student
+      if student[:cohort] == cohort   # if each object student of students array's :cohort value mathches with cohort prompted variable, print below interpolated string 
         puts "- #{student[:name]}, is #{student[:gender]}, who speaks #{student[:m_tongue]}, and is from #{student[:c_of_b]}"
       end
     end
