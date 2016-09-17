@@ -29,7 +29,7 @@ def input_students
     
     @students << {name: name, cohort: (!cohort.empty? ? cohort : :unknown), gender: gender, m_tongue: language, c_of_b: country }  # above variables are pushed inside as key values inside a hash representing a student, and each hash is an object inside the students array. For the cohort: key, the value is inside a ternary operator, where the prompted cohort value is returned if the cohort variable is not empty, and if it is :cohort value is defaulted to :unknown
     
-    puts "Now we have #{@students.count} #{@students.count > 1 ? "students" : "student"}. Please enter a new name, or hit return to exit."   # the print is interpolated on how many students there are in the array, and if there are more than 1 student the sentence will change accordingly."
+    puts "Now we have #{@students.count} #{@students.count > 1 ? "students" : "student"}. Please enter a new name, or hit return to go back to the menu."   # the print is interpolated on how many students there are in the array, and if there are more than 1 student the sentence will change accordingly."
     name = gets.chomp #   name prompt is activated again
   end
 
@@ -38,7 +38,7 @@ end
 
 
 
-def print 
+def print_students_list 
   if @students.count > 0      # below print code is activated if there are any students in the list
 
       count = 1     # a counter variable for the while loop
@@ -101,16 +101,39 @@ def print_menu
   puts "9. Exit"
 end
 
+
+
 def show_students
   print_header
-  print
+  print_students_list
   print_footer
 end
 
 
 
-    
+def process(selection)
+  case selection
+    when "1"
+      input_students
+    when "2"
+      show_students
+    when "9"
+      exit
+    else
+      puts "What the hell was that? Please try again!"
+  end
+end 
 
+
+   
+def interactive_menu
+  loop do
+    print_menu
+    process(gets.chomp)
+  end
+end
+
+interactive_menu
 #students = input_students   # creates a local variable called students that is equal to the method input_students, and there be equal to the students array of student hashes
 #print_header(students)      # method calls above students variable
 #print(students)
