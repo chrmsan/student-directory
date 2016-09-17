@@ -12,7 +12,7 @@ def input_students
     
     cohorts = [:january, :february, :march, :may, :june, :july, :september, :november]        # array actual cohort months at Makers Academy in lower case symbol format
 
-    if !cohort.empty? && !cohorts.include?(cohort) then       # if does enter a cohort month, but is does not match objects in cohorts array, activates the redo loop and it prints below code and, reprints above cohort print
+    if !cohort.empty? && !cohorts.include?(cohort) then       # if user enters a cohort month, but the prompt is does not match objects in cohorts array, activates the redo loop and it prints below code and, reprints above cohort print
       puts "Your entry was invalid, please try again."
       redo
     end
@@ -91,6 +91,13 @@ def print_footer(students)
     puts "".center(50, '-')
   end
 end
+
+
+
+def interactive_menu
+end
+
+
 
 students = input_students   # creates a local variable called students that is equal to the method input_students, and there be equal to the students array of student hashes
 print_header(students)      # method calls above students variable
