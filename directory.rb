@@ -14,7 +14,7 @@ def input_students
   
     cohorts = [:january, :february, :march, :may, :june, :july, :september, :november]
   
-    if !cohort.empty? && !cohorts.include?(cohorts.to_sym) then
+    if !cohort.empty? && !cohorts.include?(cohort.to_sym) then
       puts "Your entry was invalid, please try again"
       redo
     end
@@ -127,17 +127,24 @@ end
 def process(selection)
   case selection
     when "1"
+      puts "|ACTIVATING INPUT PROGRAM|"
       input_students
     when "2"
+      puts "|ACTIVATING STUDENT LIST|"
       show_students
     when "3"
+      puts "|STUDENT LIST SAVED|"
       save_students
     when "4"
+      puts "|LOADING STUDENTS COMPLETED|"
       load_students
     when "9"
+      puts "|EXITING MAIN PROGRAM|"  
       exit
     else
-      puts "What the hell was that? Please try again!"
+      print_line
+      puts "***What the hell was that? Please try again!***"
+      print_line
   end
 end 
 
