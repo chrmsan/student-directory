@@ -7,14 +7,15 @@ def input_students
   name = STDIN.gets.chomp             # prompts the name
 
   while !name.empty?            # if user enters a name, the following code will work 
+
     puts "Please enter the cohort month the student belongs to. Or hit return to pass if that is unknown."
 
     cohort = STDIN.gets.chomp.downcase    # prompts cohort month, makes it lowercase and makes into symbol
-    
-    cohorts = [:january, :february, :march, :may, :june, :july, :september, :november]        # array actual cohort months at Makers Academy in lower case symbol format
-
-    if !cohort.empty? && !cohorts.include?(cohort.to_sym) then       # if user enters a cohort month, but the prompt is does not match objects in cohorts array, activates the redo loop and it prints below code and, reprints above cohort print
-      puts "Your entry was invalid, please try again."
+  
+    cohorts = [:january, :february, :march, :may, :june, :july, :september, :november]
+  
+    if !cohort.empty? && !cohorts.include?(cohorts.to_sym) then
+      puts "Your entry was invalid, please try again"
       redo
     end
 
@@ -29,11 +30,19 @@ def input_students
     
     add_student(name, cohort, gender, language, country)  # above variables are pushed inside as key values inside a hash representing a student, and each hash is an object inside the students array. For the cohort: key, the value is inside a ternary operator, where the prompted cohort value is returned if the cohort variable is not empty, and if it is :cohort value is defaulted to :unknown
     
-    puts "Now we have #{@students.count} #{@students.count > 1 ? "students" : "student"}. Please enter a new name, or hit return to go back to the menu."   # the print is interpolated on how many students there are in the array, and if there are more than 1 student the sentence will change accordingly."
+    puts "Now we have #{@students.count} #{is_plural}. Please enter a new name, or hit return to go back to the menu."   # the print is interpolated on how many students there are in the array, and if there are more than 1 student the sentence will change accordingly."
+
+
     name = STDIN.gets.chomp #   name prompt is activated again
   end
 
   @students   # returns the array of student hashes
+end
+
+
+
+def is_plural
+  @students.count > 1 ? "students" : "student"
 end
 
 
@@ -49,7 +58,7 @@ def print_students_list
       end
   else   # if there are no students, below string will be printed
     puts "Student list not available since no students were entered in the system.".center(50) 
-    puts "".center(50, '-')   
+    print_line
   end 
 end
 
@@ -57,12 +66,12 @@ end
 
 def print_by_cohort
   if @students.count > 0
-    puts "".center(50, '-')
+    print_line
     puts "Here we will print out students from a specific cohort"
     puts "Please enter cohort month of the relevant group of students"
     cohort = gets.chomp.downcase.to_sym
     puts "Students belonging to the #{cohort.capitalize} cohort of Villains Academy".center(50)
-    puts "".center(50, '-')
+    print_line
     @students.each do |student|    # each method activates below code for each object in the students array and calls the object for student
       if student[:cohort] == cohort   # if each object student of students array's :cohort value mathches with cohort prompted variable, print below interpolated string 
         puts "- #{student[:name]}, is #{student[:gender]}, who speaks #{student[:m_tongue]}, and is from #{student[:c_of_b]}"
@@ -70,16 +79,18 @@ def print_by_cohort
     end
   else
     puts "Cohort student list not available since no students were entered in the system."
-    puts "".center(50, '-')
+    print_line
   end      
 end
 
-
+def print_line
+  puts "".center(50, '-')
+end
 
 def print_header
   if @students.count > 0  
     puts "The students of Villains Academy".center(50)
-    puts "".center(50, '-')
+    print_line
   end
 end
 
@@ -87,9 +98,9 @@ end
 
 def print_footer 
   if @students.count > 0
-    puts "".center(50, '-')
-    puts "Overall, we have #{@students.count} great #{@students.count > 1 ? "students" : "student"}!".center(50)
-    puts "".center(50, '-')
+    print_line
+    puts "Overall, we have #{@students.count} great #{is_plural}!".center(50)
+    print_line
   end
 end
 
@@ -158,7 +169,7 @@ end
 def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
-  name, cohort, gender, language, country = line.chomp.split(',')
+    name, cohort, gender, language, country = line.chomp.split(',')
     add_student(name, cohort, gender, language, country)
   end
   file.close
