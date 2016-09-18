@@ -18,17 +18,10 @@ def input_students
       puts "Your entry was invalid, please try again"
       redo
     end
-
-    puts "What is the student's gender?" 
-    gender = STDIN.gets.chomp.downcase   # prompts gnder, makes it lowercase and makes into symbol
-      
-    puts "What is the student's mother tongue?"  # prompts language, makes it lowercase and makes into symbol
-    language = STDIN.gets.chomp.capitalize
     
-    puts "What is the student's country of origin?"  # prompts country, makes it lowercase and makes into symbol
-    country = STDIN.gets.chomp.capitalize
+    additional_info
     
-    add_student(name, cohort, gender, language, country)  # above variables are pushed inside as key values inside a hash representing a student, and each hash is an object inside the students array. For the cohort: key, the value is inside a ternary operator, where the prompted cohort value is returned if the cohort variable is not empty, and if it is :cohort value is defaulted to :unknown
+    add_student(name, cohort, @gender, @language, @country)  # above variables are pushed inside as key values inside a hash representing a student, and each hash is an object inside the students array. For the cohort: key, the value is inside a ternary operator, where the prompted cohort value is returned if the cohort variable is not empty, and if it is :cohort value is defaulted to :unknown
     
     puts "Now we have #{@students.count} #{is_plural}. Please enter a new name, or hit return to go back to the menu."   # the print is interpolated on how many students there are in the array, and if there are more than 1 student the sentence will change accordingly."
 
@@ -37,6 +30,19 @@ def input_students
   end
 
   @students   # returns the array of student hashes
+end
+
+
+
+def additional_info
+    puts "What is the student's gender?" 
+    @gender = STDIN.gets.chomp.downcase   # prompts gnder, makes it lowercase and makes into symbol
+      
+    puts "What is the student's mother tongue?"  # prompts language, makes it lowercase and makes into symbol
+    @language = STDIN.gets.chomp.capitalize
+    
+    puts "What is the student's country of origin?"  # prompts country, makes it lowercase and makes into symbol
+    @country = STDIN.gets.chomp.capitalize
 end
 
 
@@ -109,8 +115,8 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save current list"
+  puts "4. Load a list:"
   puts "9. Exit"
 end
 
@@ -160,8 +166,10 @@ end
 
 
 def save_students
+  puts "Please enter a filename"
+  filename = gets.chomp + ".csv"
   # open the file for writing
-  file = File.open("students.csv", "w")     # open as in create a file?
+  file = File.open(filename, "w")     # open as in create a file?
   # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort], student[:gender], student[:m_tongue], student[:c_of_b]]
