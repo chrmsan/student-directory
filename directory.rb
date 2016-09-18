@@ -163,7 +163,7 @@ end
 
 
 
-def save_students(filename = "students.csv")
+def save_students(filename)
   # open the file for writing
   file = File.open(filename, "w")     # open as in create a file?
   # iterate over the array of students
@@ -186,7 +186,7 @@ def request_filename(selection)
 
 
 
-def load_students(filename = "students.csv")
+def load_students(filename)
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort, gender, language, country = line.chomp.split(',')
@@ -200,9 +200,8 @@ end
 
 def try_load_students
   filename = ARGV.first # first argument from the command line
-  if filename.nil? then # if no argument is given in command line after directory.rb, by default load_students 
-    load_students
-  elsif File.exists?(filename) #if argument exist
+  return if filename.nil?
+  if File.exists?(filename) #if argument exist
     load_students(filename)
       puts "Loaded #{@students.count} from #{filename}"
   else
