@@ -168,8 +168,9 @@ end
 
 def try_load_students
   filename = ARGV.first # first argument from the command line
-  return if filename.nil? # get out of the method if isn't given
-  if File.exists?(filename) #if it exists
+  if filename.nil? then # if no argument is given in command line after directory.rb, by default load_students 
+    load_students
+  elsif File.exists?(filename) #if argument exist
     load_students(filename)
       puts "Loaded #{@students.count} from #{filename}"
   else
