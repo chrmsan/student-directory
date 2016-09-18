@@ -1,3 +1,6 @@
+require 'csv'
+
+
 @students = Array.new   #instance variable named students that is an array
 
 def input_students
@@ -165,14 +168,11 @@ end
 
 def save_students(filename)
   # open the file for writing
-  file = File.open(filename, "w")     # open as in create a file?
-  # iterate over the array of students
+  CSV.open(filename, "w") do |csv|
   @students.each do |student|
-    student_data = [student[:name], student[:cohort], student[:gender], student[:m_tongue], student[:c_of_b]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+     csv << [student[:name], student[:cohort], student[:gender], student[:m_tongue], student[:c_of_b]]
+    end
   end
-  file.close
   puts "\"#{filename}\" has been saved"
 end
 
@@ -187,12 +187,9 @@ def request_filename(selection)
 
 
 def load_students(filename)
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-    name, cohort, gender, language, country = line.chomp.split(',')
-    add_student(name, cohort, gender, language, country)
+  CSV.open(filename).read.each do |csv|
+    add_student(csv[0], csv[1], csv[2], csv[3], csv[4])
   end
-  file.close
   puts "\"#{filename}\" has been uploaded to the program"
 end
 
