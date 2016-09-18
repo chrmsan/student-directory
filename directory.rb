@@ -139,11 +139,9 @@ def process(selection)
       puts "|ACTIVATING STUDENT LIST|"
       show_students
     when "3"
-      puts "|STUDENT LIST SAVED|"
-      save_students
+      request_filename(selection)
     when "4"
-      puts "|LOADING STUDENTS COMPLETED|"
-      load_students
+      request_filename(selection)
     when "9"
       puts "|EXITING MAIN PROGRAM|"  
       exit
@@ -165,9 +163,7 @@ end
 
 
 
-def save_students
-  puts "Please enter a filename"
-  filename = gets.chomp + ".csv"
+def save_students(filename = "students.csv")
   # open the file for writing
   file = File.open(filename, "w")     # open as in create a file?
   # iterate over the array of students
@@ -177,7 +173,16 @@ def save_students
     file.puts csv_line
   end
   file.close
+  puts "\"#{filename}\" has been saved"
 end
+
+
+
+def request_filename(selection)
+  puts "Please enter a filename: "
+  filename = STDIN.gets.chomp
+  selection == "3" ? save_students(filename) : load_students(filename)
+  end
 
 
 
@@ -188,6 +193,7 @@ def load_students(filename = "students.csv")
     add_student(name, cohort, gender, language, country)
   end
   file.close
+  puts "\"#{filename}\" has been uploaded to the program"
 end
 
 
