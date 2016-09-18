@@ -9,25 +9,25 @@ def input_students
   while !name.empty?            # if user enters a name, the following code will work 
     puts "Please enter the cohort month the student belongs to. Or hit return to pass if that is unknown."
 
-    cohort = gets.chomp.downcase.to_sym    # prompts cohort month, makes it lowercase and makes into symbol
+    cohort = STDIN.gets.chomp.downcase    # prompts cohort month, makes it lowercase and makes into symbol
     
     cohorts = [:january, :february, :march, :may, :june, :july, :september, :november]        # array actual cohort months at Makers Academy in lower case symbol format
 
-    if !cohort.empty? && !cohorts.include?(cohort) then       # if user enters a cohort month, but the prompt is does not match objects in cohorts array, activates the redo loop and it prints below code and, reprints above cohort print
+    if !cohort.empty? && !cohorts.include?(cohort.to_sym) then       # if user enters a cohort month, but the prompt is does not match objects in cohorts array, activates the redo loop and it prints below code and, reprints above cohort print
       puts "Your entry was invalid, please try again."
       redo
     end
 
     puts "What is the student's gender?" 
-    gender = gets.chomp.downcase.to_sym   # prompts gnder, makes it lowercase and makes into symbol
+    gender = STDIN.gets.chomp.downcase   # prompts gnder, makes it lowercase and makes into symbol
       
     puts "What is the student's mother tongue?"  # prompts language, makes it lowercase and makes into symbol
-    language = gets.chomp.capitalize.to_sym
+    language = STDIN.gets.chomp.capitalize
     
     puts "What is the student's country of origin?"  # prompts country, makes it lowercase and makes into symbol
-    country = gets.chomp.capitalize.to_sym
+    country = STDIN.gets.chomp.capitalize
     
-    @students << {name: name, cohort: (!cohort.empty? ? cohort : :unknown), gender: gender, m_tongue: language, c_of_b: country }  # above variables are pushed inside as key values inside a hash representing a student, and each hash is an object inside the students array. For the cohort: key, the value is inside a ternary operator, where the prompted cohort value is returned if the cohort variable is not empty, and if it is :cohort value is defaulted to :unknown
+    add_student(name, cohort, gender, language, country)  # above variables are pushed inside as key values inside a hash representing a student, and each hash is an object inside the students array. For the cohort: key, the value is inside a ternary operator, where the prompted cohort value is returned if the cohort variable is not empty, and if it is :cohort value is defaulted to :unknown
     
     puts "Now we have #{@students.count} #{@students.count > 1 ? "students" : "student"}. Please enter a new name, or hit return to go back to the menu."   # the print is interpolated on how many students there are in the array, and if there are more than 1 student the sentence will change accordingly."
     name = STDIN.gets.chomp #   name prompt is activated again
@@ -146,7 +146,7 @@ def save_students
   file = File.open("students.csv", "w")     # open as in create a file?
   # iterate over the array of students
   @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
+    student_data = [student[:name], student[:cohort], student[:gender], student[:m_tongue], student[:c_of_b]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
@@ -158,8 +158,8 @@ end
 def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+  name, cohort, gender, language, country = line.chomp.split(',')
+    add_student(name, cohort, gender, language, country)
   end
   file.close
 end
@@ -176,6 +176,12 @@ def try_load_students
     puts "Sorry, #{filename} doesn't exist"
     exit
   end
+end
+
+
+
+def add_student(name, cohort, gender, language, country)
+  @students << {name: name, cohort: (!cohort.empty? ? cohort.to_sym : :unknown), gender: gender.to_sym, m_tongue: language.to_sym, c_of_b: country.to_sym}
 end
 
 
